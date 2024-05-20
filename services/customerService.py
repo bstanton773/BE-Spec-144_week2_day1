@@ -31,3 +31,10 @@ def save(customer_data):
     except Exception as e:
         # If an exception occurs, the circuit breaker will handle it based on configuration
         raise e
+
+
+# Function to get all of the customers from the db
+def find_all():
+    query = db.select(Customer)
+    customers = db.session.execute(query).scalars().all()
+    return customers
