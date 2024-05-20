@@ -13,5 +13,9 @@ def save():
     
     # Call the save service with the customer data
     customer_save = customerService.save(customer_data)
-    # Serialize the customer data and return with a 201 success
-    return customer_schema.jsonify(customer_save), 201
+    # Check to see that the customer_save is a customer and not None
+    if customer_save is not None:
+        # Serialize the customer data and return with a 201 success
+        return customer_schema.jsonify(customer_save), 201
+    else:
+        return jsonify({"message": "Fallback method error activated", "body": customer_data}), 400
