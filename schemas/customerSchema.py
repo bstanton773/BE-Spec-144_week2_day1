@@ -11,6 +11,6 @@ class CustomerSchema(ma.Schema):
     class Meta:
         fields = ("id", "name", "email", "phone")
 
-# Create instnaces of the schema
+# Create instances of the schema
 customer_schema = CustomerSchema()
 customers_schema = CustomerSchema(many=True)
