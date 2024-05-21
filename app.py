@@ -6,6 +6,7 @@ from caching import cache
 
 from models.customer import Customer
 from models.customerAccount import CustomerAccount
+from models.product import Product
 
 from routes.customerBP import customer_blueprint
 
