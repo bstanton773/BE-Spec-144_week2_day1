@@ -1,5 +1,5 @@
 from flask import Flask
-from database import db
+from database import db, migrate
 from schemas import ma
 from limiter import limiter
 from caching import cache
@@ -21,6 +21,7 @@ def create_app(config_name):
     ma.init_app(app)
     limiter.init_app(app)
     cache.init_app(app)
+    migrate.init_app(app, db)
 
     return app
 
