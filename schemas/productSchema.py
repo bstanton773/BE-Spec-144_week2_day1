@@ -10,6 +10,11 @@ class ProductSchema(ma.Schema):
     class Meta:
         fields = ("id", "name", "price")
 
+
+class ProductIdSchema(ma.Schema):
+    id = fields.Integer(required=True)
+
+
 # Create an instance of the ProductSchema
 product_schema = ProductSchema()
 products_schema = ProductSchema(many=True) # For handling multiple products
