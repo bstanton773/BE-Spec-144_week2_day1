@@ -13,3 +13,10 @@ def save(product_data):
             session.commit()
         session.refresh(new_product)
         return new_product
+
+
+# Function to get all products from the Products table
+def find_all():
+    query = db.select(Product)
+    products = db.session.execute(query).scalars().all()
+    return products

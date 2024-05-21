@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from schemas.productSchema import product_schema
+from schemas.productSchema import product_schema, products_schema
 from services import productService
 from marshmallow import ValidationError
 
@@ -13,3 +13,8 @@ def save():
     new_product = productService.save(product_data)
 
     return product_schema.jsonify(new_product), 201
+
+
+def find_all():
+    products = productService.find_all()
+    return products_schema.jsonify(products)
