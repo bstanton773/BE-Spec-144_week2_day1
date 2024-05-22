@@ -16,5 +16,10 @@ def save():
 
 
 def find_all():
-    products = productService.find_all()
+    # Get any request query params aka args
+    args = request.args
+    page = args.get('page', 1, type=int)
+    # print('The page arg is:', page, 'and the type is', type(page))
+    per_page = args.get('per_page', 10, type=int)
+    products = productService.find_all(page, per_page)
     return products_schema.jsonify(products)
