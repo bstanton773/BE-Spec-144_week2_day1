@@ -3,7 +3,8 @@ from sqlalchemy import select
 from database import db
 from models.customer import Customer
 from circuitbreaker import circuit
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
+from utils.util import encode_token
 
 
 # Fallback function - executed once the limit has been passed
@@ -61,3 +62,17 @@ def find_all():
     query = db.select(Customer)
     customers = db.session.execute(query).scalars().all()
     return customers
+
+
+# Function that will take in a username and password and return token if valid, None if not
+def get_token(username, password):
+    # Query the customer table for that username
+    query = db.select(Customer).where(Customer.username == username)
+    customer = db.session.execute(query).scalars().first()
+    if customer is not None and check_password_hash(customer.password, password):
+        # Create a token with the customer's id
+        auth_token = encode_token(customer.id)
+        return auth_token
+    else:
+        return None
+
