@@ -2,8 +2,10 @@ from flask import request, jsonify
 from schemas.productSchema import product_schema, products_schema
 from services import productService
 from marshmallow import ValidationError
+from auth import token_auth
 
 
+@token_auth.login_required
 def save():
     try:
         product_data = product_schema.load(request.json)
