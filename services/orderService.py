@@ -36,3 +36,9 @@ def save(order_data):
             session.refresh(product)
 
         return new_order
+
+
+def find_all():
+    query = select(Order)
+    orders = db.session.execute(query).scalars().all()
+    return orders
