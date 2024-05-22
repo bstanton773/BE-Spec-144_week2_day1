@@ -21,5 +21,6 @@ def find_all():
     page = args.get('page', 1, type=int)
     # print('The page arg is:', page, 'and the type is', type(page))
     per_page = args.get('per_page', 10, type=int)
-    products = productService.find_all(page, per_page)
+    search_term = args.get('search')
+    products = productService.find_all(page, per_page, search_term)
     return products_schema.jsonify(products)
