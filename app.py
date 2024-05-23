@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from database import db, migrate
 from schemas import ma
 from limiter import limiter
@@ -26,6 +27,7 @@ def create_app(config_name):
     limiter.init_app(app)
     cache.init_app(app)
     migrate.init_app(app, db)
+    CORS(app)
 
     blueprint_config(app)
     config_rate_limit()
