@@ -73,6 +73,8 @@ paths:
           description: "Invalid Input"
         401:
           description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/UnauthorizedError"
 definitions: 
   TokenCredentials:
     type: "object"
@@ -99,6 +101,13 @@ definitions:
       token:
         type: "string"
         description: "Authenticated token"
+  UnauthorizedError:
+    type: "object"
+    properties:
+      error:
+        type: "string"
+        description: "The description of the error"
+        example: "Invalid token. Please try again"
 securityDefinitions:
   bearerAuth:
     type: apiKey
