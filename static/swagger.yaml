@@ -96,10 +96,22 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Customer"
+              $ref: "#/definitions/CustomerResponse"
     post:
       summary: "Create a new customer"
       description: "Will add a new customer to the database"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User create object"
+          required: true
+          schema:
+            $ref: "#/definitions/CustomerRequest"
+      responses:
+        201:
+          description: 'Customer Created'
+          schema:
+            $ref: "#/definitions/CustomerResponse"
 definitions: 
   TokenCredentials:
     type: "object"
@@ -136,10 +148,6 @@ definitions:
   Customer:
     type: "object"
     properties:
-      id:
-        type: "integer"
-        description: "Customer's unique ID"
-        example: 1
       name:
         type: "string"
         description: "Customer's full name"
@@ -156,6 +164,25 @@ definitions:
         type: "string"
         description: "Customer's username"
         example: "jumpman23"
+  CustomerResponse:
+    allOf:
+      - $ref: '#/definitions/Customer'
+      - type:
+        properties:
+          id:
+            type: "integer"
+            description: "Customer's unique ID"
+            readonly: true
+            example: 23
+  CustomerRequest:
+    allOf:
+      - $ref: "#/definitions/Customer"
+      - type:
+        properties:
+          password:
+            type: "string"
+            description: "Customer's password"
+            example: "6rings!"
 securityDefinitions:
   bearerAuth:
     type: apiKey
