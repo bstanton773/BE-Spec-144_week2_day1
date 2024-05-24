@@ -27,10 +27,52 @@ paths:
           description: "Login Successful"
           schema:
             $ref: "#/definitions/TokenResponse"
+          examples:
+            application/json:
+              status: "success"
+              messsage: "You have successfully authenticated yourself"
+              token: "eyJhbGciJkeMAK1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY1Njk1ODUsImaJmMTcxNjU2NTk4NSwic3ViIjoxfQ.qcNLua5V9JHGNdkemandKdkWEUvgSWeuQBR2EMNl7Jo"
         401:
           description: "Unsuccessful login"
           schema:
             $ref: "#/definitions/TokenResponse"
+          examples:
+            application/json:
+              status: "error"
+              message: "Username and/or password is incorrect"
+  /orders/:
+    post:
+      summary: "Create Order Endpoint"
+      description: "Creates a new order for the authenticated user"
+      security: 
+        - bearerAuth: []
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Order object"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              products:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: "integer"
+                      example: 1
+                  required:
+                    - id
+            required:
+              - products
+      responses:
+        201:
+          description: "Order Created"
+        400:
+          description: "Invalid Input"
+        401:
+          description: "Unauthorized"
 definitions: 
   TokenCredentials:
     type: "object"
