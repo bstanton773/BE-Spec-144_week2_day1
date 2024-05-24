@@ -18,9 +18,12 @@ def save():
 
 
 
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 def find_all():
-    customers = customerService.find_all()
+    args = request.args
+    page = args.get('page', 1, type=int)
+    per_page = args.get('per_page', 10, type=int)
+    customers = customerService.find_all(page, per_page)
     return customers_schema.jsonify(customers), 200
 
 

@@ -58,8 +58,8 @@ def save(customer_data):
 
 
 # Function to get all of the customers from the db
-def find_all():
-    query = db.select(Customer)
+def find_all(page=1, per_page=10):
+    query = db.select(Customer).offset((page-1) * per_page).limit(per_page)
     customers = db.session.execute(query).scalars().all()
     return customers
 
