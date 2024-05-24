@@ -1,0 +1,64 @@
+swagger: '2.0'
+info:
+  title: 'E-Commerce API'
+  description: 'An API to manage E-Commerce'
+  version: '1.0.0'
+host: '127.0.0.1:8888'
+schemes:
+  - 'http'
+consumes: 
+  - 'application/json'
+produces:
+  - 'application/json'
+paths: 
+  /token/:
+    post:
+      summary: "Token Endpoint"
+      description: "Endpoint for user authentication"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Credentials for login"
+          required: true
+          schema:
+            $ref: "#/definitions/TokenCredentials"
+      responses:
+        200:
+          description: "Login Successful"
+          schema:
+            $ref: "#/definitions/TokenResponse"
+        401:
+          description: "Unsuccessful login"
+          schema:
+            $ref: "#/definitions/TokenResponse"
+definitions: 
+  TokenCredentials:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+        description: "The username of the user"
+      password:
+        type: "string"
+        format: "password"
+        description: "The password associated with username"
+    required:
+      - "username"
+      - "password"
+  TokenResponse:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+        description: "Status of the operation"
+      message:
+        type: "string"
+        description: "Message indicating the success or failure"
+      token:
+        type: "string"
+        description: "Authenticated token"
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
