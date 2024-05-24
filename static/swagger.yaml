@@ -75,6 +75,31 @@ paths:
           description: "Unauthorized"
           schema:
             $ref: "#/definitions/UnauthorizedError"
+  /customers/ :
+    get:
+      summary: "Get all customers"
+      description: "Retrieve a list of all customers"
+      parameters:
+        - in: query
+          name: page
+          type: "integer"
+          description: "Page of the customers"
+          required: false
+        - in: query
+          name: per_page
+          type: "integer"
+          description: "Number of customers per page"
+          required: false
+      responses:
+        200:
+          description: 'Successful Response'
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Customer"
+    post:
+      summary: "Create a new customer"
+      description: "Will add a new customer to the database"
 definitions: 
   TokenCredentials:
     type: "object"
@@ -108,6 +133,29 @@ definitions:
         type: "string"
         description: "The description of the error"
         example: "Invalid token. Please try again"
+  Customer:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "Customer's unique ID"
+        example: 1
+      name:
+        type: "string"
+        description: "Customer's full name"
+        example: "Michael Jordan"
+      email:
+        type: "string"
+        description: "Customer's email address"
+        example: "mj@bulls.com"
+      phone:
+        type: "string"
+        description: "Customer's phone number"
+        example: "(555) 555-4321"
+      username:
+        type: "string"
+        description: "Customer's username"
+        example: "jumpman23"
 securityDefinitions:
   bearerAuth:
     type: apiKey
